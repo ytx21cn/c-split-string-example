@@ -10,6 +10,8 @@ char** splitStr(const char* str) {
 	
 	char* sdup = strdup(str);
 	void* sdup_orig = sdup;
+	// NOTE: strsep() will change sdup's address
+	// so the original address shall be freed afterwards
 	
 	unsigned int numTokens = 0;
 	char** resultArr = NULL;
