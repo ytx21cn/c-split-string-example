@@ -2,6 +2,8 @@
 #include <string.h>
 #include <stdlib.h>
 
+#define MAX_INPUT_SIZE 512
+
 char** splitStr(char* str, unsigned int* tokensCounter) {
 
 	/* split the string by white spaces, and add NULL at the end
@@ -43,10 +45,10 @@ char** splitStr(char* str, unsigned int* tokensCounter) {
 
 
 int main () {
-	char* str = NULL;
-	size_t n = 0;
+	char str[MAX_INPUT_SIZE];
+	size_t n = MAX_INPUT_SIZE;
 	printf("Please type in your string: $ ");
-	getline(&str, &n, stdin);
+	fgets(str, n, stdin);
 
 	char* sdup = strdup(str);
 	// make a copy of str, and pass it into splitStr
@@ -69,7 +71,6 @@ int main () {
 
 	printf("Original: %s\n", str); // str is unchanged
 
-	free(str);
 	free(sdup);
 	free(result);
 
