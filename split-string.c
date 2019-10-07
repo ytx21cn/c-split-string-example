@@ -4,8 +4,16 @@
 
 char** splitStr(char* str, unsigned int* tokensCounter) {
 
-	// split the string by white spaces, and add NULL at the end
+	/* split the string by white spaces, and add NULL at the end
+		return an array of tokens (dynamically allocated)
+		tokensCounter is updated at the end to save the number of tokens
+
+		e.g.
+			Input: "  This is a sample string   "
+			Output: {"This", "is", "a", "sample", "string", NULL}
+	*/
 	// NOTE: the memory allocated for resultArr must be freed afterwards
+	// using free() manually in subsequent code
 
 	const char* delims = " \n\t\v\f\r";
 
@@ -35,7 +43,7 @@ char** splitStr(char* str, unsigned int* tokensCounter) {
 
 
 int main () {
-	char str[] = " This is a sample string   ";
+	char str[] = "  This is a sample string   ";
 	unsigned int tokens = 0;
 	char** result = splitStr(str, &tokens);
 
