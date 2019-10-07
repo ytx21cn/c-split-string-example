@@ -5,6 +5,7 @@
 char** splitStr(char* str, unsigned int* tokensCounter) {
 
 	// split the string by white spaces, and add NULL at the end
+	// NOTE: the memory allocated for resultArr must be freed afterwards
 
 	const char* delims = " \n\t\v\f\r";
 
