@@ -43,7 +43,11 @@ char** splitStr(char* str, unsigned int* tokensCounter) {
 
 
 int main () {
-	char str[] = "  This is a sample string   ";
+	char* str = NULL;
+	size_t n = 0;
+	printf("Please type in your string: $ ");
+	getline(&str, &n, stdin);
+
 	char* sdup = strdup(str);
 	// make a copy of str, and pass it into splitStr
 	// this copy has its own memory space, and must be freed afterwards
@@ -65,8 +69,9 @@ int main () {
 
 	printf("Original: %s\n", str); // str is unchanged
 
-	free(result);
+	free(str);
 	free(sdup);
+	free(result);
 
 	return 0;
 }
