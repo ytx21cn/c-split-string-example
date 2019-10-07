@@ -2,64 +2,55 @@
 #include <string.h>
 #include <stdlib.h>
 
-char** splitStr(const char* str) {
-	
+char** splitStr(char* str, unsigned int* tokensCounter) {
+
 	// split the string by white spaces, and add NULL at the end
-	
+
 	const char* delims = " \n\t\v\f\r";
-	
-	char* sdup = strdup(str);
-	void* sdup_orig = sdup;
-	// NOTE: strsep() will change sdup's address
-	// so the original address shall be freed afterwards
-	
+
 	unsigned int numTokens = 0;
 	char** resultArr = NULL;
-	
 	char* found = NULL;
-	
 	do {
-		found = strsep(&sdup, delims);
-		
+		found = strsep(&str, delims);
 		if ((found == NULL) || (strcmp(found, "") != 0)) {
 			++numTokens;
 			resultArr = (char**)realloc(resultArr, numTokens * sizeof(char*));
-			
 			if (!resultArr) { // on error
 				free(found);
-				free(sdup_orig);
 				free(resultArr);
 				exit(-1);
 			}
-			
 			resultArr[numTokens-1] = found;
 		}
-		
 	} while (found != NULL);
-	
-	
+
+	*tokensCounter = numTokens;
+
+	free(found);
+
+	return resultArr;
+}
+
+
+int main () {
+	char str[] = " This is a sample string   ";
+	unsigned int tokens = 0;
+	char** result = splitStr(str, &tokens);
+
 	// print out, for testing only
-	for (unsigned int i = 0; i < numTokens; ++i) {
-		char* resultStr = resultArr[i];
-		if (resultStr != NULL) {
+	printf("Tokens: %d\n", tokens);
+	for (unsigned int i = 0; i < tokens; ++i) {
+		char* resultStr = result[i];
+		if (resultStr) {
 			printf("%s\n", resultStr);
 		}
 		else {
 			printf("[NULL]\n");
 		}
 	}
-	
-	free(found);
-	free(sdup_orig);
-	free(resultArr);
-	
-	return resultArr;
-}
 
+	free(result);
 
-int main () {
-	char str[] = "   This is a string  ";
-	splitStr(str);
 	return 0;
 }
-
