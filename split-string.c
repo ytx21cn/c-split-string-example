@@ -44,8 +44,12 @@ char** splitStr(char* str, unsigned int* tokensCounter) {
 
 int main () {
 	char str[] = "  This is a sample string   ";
+	char* sdup = strdup(str);
+	// make a copy of str, and pass it into splitStr
+	// this copy has its own memory space, and must be freed afterwards
+
 	unsigned int tokens = 0;
-	char** result = splitStr(str, &tokens);
+	char** result = splitStr(sdup, &tokens);
 
 	// print out, for testing only
 	printf("Tokens: %d\n", tokens);
@@ -59,7 +63,10 @@ int main () {
 		}
 	}
 
+	printf("Original: %s\n", str); // str is unchanged
+
 	free(result);
+	free(sdup);
 
 	return 0;
 }
